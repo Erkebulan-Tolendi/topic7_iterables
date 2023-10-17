@@ -132,8 +132,43 @@ void main() {
   // }
 
   //9
-  final list = [1,2,3,4];
+  // final digits = [6, 1, 2, 5];
+  // final permutations = findValidTimePermutations(digits);
+  // if (permutations.isNotEmpty) {
+  //   final lastTime = permutations.last;
+  //   final hours = lastTime[0] * 10 + lastTime[1];
+  //   final minutes = lastTime[2] * 10 + lastTime[3];
+
+  //   print(
+  //       "valid time: ${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}");
+  // }
+  
   
 }
 
+List<List<int>> findValidTimePermutations(List<int> digits) {
+  final List<List<int>> validTimes = [];
 
+  for (int i = 0; i < digits.length; i++) {
+    for (int j = 0; j < digits.length; j++) {
+      for (int k = 0; k < digits.length; k++) {
+        for (int l = 0; l < digits.length; l++) {
+          if (i != j && i != k && i != l && j != k && j != l && k != l) {
+            final time = [digits[i], digits[j], digits[k], digits[l]];
+            if (isValidTime(time)) {
+              validTimes.add(time);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return validTimes;
+}
+
+bool isValidTime(List<int> time) {
+  final hours = time[0] * 10 + time[1];
+  final minutes = time[2] * 10 + time[3];
+  return hours >= 0 && hours <= 23 && minutes >= 0 && minutes <= 59;
+}
